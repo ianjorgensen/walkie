@@ -58,7 +58,7 @@ var noise = 0;
 function onVolumesChanged(event) {
 		console.log(event);
 		var volume = gapi.hangout.av.getParticipantVolume(gapi.hangout.getParticipantId());
-		noise =+ volume;
+		noise = noise + parseInt(volume);
 
 		$('.silence').text(noise);
 		//$('.silence').css('height', (100 - (parseInt(volume) * 20)) + '%');
