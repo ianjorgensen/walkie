@@ -53,11 +53,15 @@
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
+var noise = 0;
+
 function onVolumesChanged(event) {
 		console.log(event);
 		var volume = gapi.hangout.av.getParticipantVolume(gapi.hangout.getParticipantId());
+		noise =+ volume;
 
-		$('.silence').css('height', (100 - (parseInt(volume) * 20)) + '%');
+		$('.silence').text(noise);
+		//$('.silence').css('height', (100 - (parseInt(volume) * 20)) + '%');
 };
 
 function init() {
