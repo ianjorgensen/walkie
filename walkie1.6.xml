@@ -37,14 +37,21 @@
 -->
 </style>
 <body>
+<div id='volume'></div>
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
+function onVolumesChanged(event) {
+		var volume = gapi.hangout.av.getParticipantVolume(gapi.hangout.getParticipantId());
+
+		$('#volume').text(volume);
+}l
+
 function init() {
   // When API is ready...
 	gapi.hangout.av.setMicrophoneMute(true);
-
+	gapi.hangout.av.onVolumesChanged.add(onVolumesChanged);
 	gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
