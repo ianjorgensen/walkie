@@ -79,8 +79,16 @@ function showParticipants() {
   div.innerHTML = retVal;
 }
 
+var t = false;
 function init() {
   // When API is ready...
+	gapi.hangout.av.onVolumesChanged.add(
+	  function(eventObj) {
+			var div = document.getElementById('participantsDiv');
+			div.innerHTML = JSON.stringify(eventObj);
+		}
+	);
+
   gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
@@ -92,7 +100,13 @@ function init() {
 					       gapi.hangout.av.clearMicrophoneMute(true);
 					   }
 					   if(e.keyCode == 32){
-					       gapi.hangout.av.setMicrophoneMute(true);
+						 		t = !t;
+								if(t) {
+								gapi.hangout.av.setMicrophoneMute(t);
+								} else {
+								gapi.hangout.av.clearMicrophoneMute(true);
+								}
+
 					   }
 					});
         }
