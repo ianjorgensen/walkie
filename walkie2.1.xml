@@ -21,6 +21,9 @@
 
 <html>
 <style type="text/css">
+	body {
+	background: blue;
+	}
 <!--
 .button {
   border-radius: 3px;
@@ -37,78 +40,42 @@
 -->
 </style>
 <body>
+<div id='volume'>-</div>
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-<h3>Walkie Talkie</h3>
-
-<p>
-<input class="button" type="button" value="Show participants!" id="showParticipants"
-    style="visibility:hidden;"
-    onClick="showParticipants()"/>
-</p>
-
-<div id="participantsDiv"></div>
-
-<hr>
-
-<p><a href="http://developers.google.com/+/hangouts/getting-started">Read the docs</a> to learn more about developing hangouts!</a></p>
-
 <script>
-function showParticipants() {
-	gapi.hangout.av.setMicrophoneMute(true);
+function onVolumesChanged(event) {
+		var volume = gapi.hangout.av.getParticipantVolume(gapi.hangout.getParticipantId());
 
-  var participants = gapi.hangout.getParticipants();
+		$('#volume').text(volume);
+}l
 
-  var retVal = '<p>Participants: </p><ul>';
-
-  for (var index in participants) {
-    var participant = participants[index];
-
-    if (!participant.person) {
-      retVal += '<li>A participant not running this app</li>';
-    }
-    retVal += '<li>' + participant.person.displayName + '</li>';
-  }
-
-  retVal += '</ul>';
-
-  var div = document.getElementById('participantsDiv');
-
-  div.innerHTML = retVal;
-}
-
-var t = false;
 function init() {
   // When API is ready...
-	gapi.hangout.av.onVolumesChanged.add(
-	  function(eventObj) {
-			var div = document.getElementById('participantsDiv');
-			div.innerHTML = JSON.stringify(eventObj);
-		}
-	);
+	gapi.hangout.av.setMicrophoneMute(true);
 
-  gapi.hangout.onApiReady.add(
+	gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
-          document.getElementById('showParticipants')
-            .style.visibility = 'visible';
+					$('body').mouseenter(function() {
+						gapi.hangout.av.clearMicrophoneMute();
+						$('body').css('background', 'green');
+					});
+					$('body').mouseleave(function() {
+						gapi.hangout.av.setMicrophoneMute(true);
+						$('body').css('background', 'red');
+					});
+
+					$('body').keydown(function(e){
+						gapi.hangout.av.clearMicrophoneMute();
+					});
 
 					$('body').keyup(function(e){
-					   if(e.keyCode == 8){
-					       gapi.hangout.av.clearMicrophoneMute(true);
-					   }
-					   if(e.keyCode == 32){
-						 		t = !t;
-								if(t) {
-								gapi.hangout.av.setMicrophoneMute(t);
-								} else {
-								gapi.hangout.av.clearMicrophoneMute(true);
-								}
-
-					   }
+						gapi.hangout.av.setMicrophoneMute(true);
 					});
+					
+					gapi.hangout.av.onVolumesChanged.add(onVolumesChanged);
         }
       });
 }
