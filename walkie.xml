@@ -57,7 +57,7 @@
 
 <script>
 function showParticipants() {
-	gapi.hangout.av.setMicrophoneMute();
+	gapi.hangout.av.setMicrophoneMute(true);
 
   var participants = gapi.hangout.getParticipants();
 
@@ -89,10 +89,10 @@ function init() {
 
 					$('body').keyup(function(e){
 					   if(e.keyCode == 8){
-					       gapi.hangout.av.clearMicrophoneMute();
+					       gapi.hangout.av.clearMicrophoneMute(true);
 					   }
 					   if(e.keyCode == 32){
-					       gapi.hangout.av.setMicrophoneMute();
+					       gapi.hangout.av.setMicrophoneMute(true);
 					   }
 					});
         }
