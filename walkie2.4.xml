@@ -38,9 +38,17 @@
 	background: -moz-linear-gradient(bottom, #ddd, #aaa); }
 
 -->
+.volume {
+	height: 100%;
+	background: green;
+}
+.silence {
+	height: 100%;
+}
 </style>
 <body>
-<div id='volume'>-</div>
+<div class='silence'></div>
+<div class='volume'></div>
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -48,7 +56,7 @@
 function onVolumesChanged(event) {
 		var volume = gapi.hangout.av.getParticipantVolume(gapi.hangout.getParticipantId());
 
-		$('#volume').text(volume);
+		$('.silence').css('height', (100 - (parseInt(volume) * 20)) + '%');
 };
 
 function init() {
@@ -60,7 +68,7 @@ function init() {
 
 					$('body').mouseenter(function() {
 						gapi.hangout.av.clearMicrophoneMute();
-						$('body').css('background', 'green');
+						$('body').css('background', 'lightgreen');
 					});
 					$('body').mouseleave(function() {
 						gapi.hangout.av.setMicrophoneMute(true);
