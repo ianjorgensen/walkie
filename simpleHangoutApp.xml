@@ -40,7 +40,7 @@
 
 <script src="//plus.google.com/hangouts/_/api/v1/hangout.js"></script>
 
-<h3>Simple Hangout App</h3>
+<h3>Walkie</h3>
 
 <p>
 <input class="button" type="button" value="Show participants!" id="showParticipants"
@@ -57,7 +57,7 @@
 <script>
 function showParticipants() {
 	gapi.hangout.av.setMicrophoneMute();
-	
+
   var participants = gapi.hangout.getParticipants();
 
   var retVal = '<p>Participants: </p><ul>';
