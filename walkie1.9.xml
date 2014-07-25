@@ -21,6 +21,9 @@
 
 <html>
 <style type="text/css">
+	body {
+	background: blue;
+	}
 <!--
 .button {
   border-radius: 3px;
