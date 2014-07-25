@@ -43,7 +43,7 @@
 
 <h3>Walkie Talkie</h3>
 
-<p>press and hold space to talk</p>
+<p>press and hold space or mouse over to talk</p>
 <script>
 function init() {
   // When API is ready...
@@ -52,6 +52,13 @@ function init() {
 	gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
+				$('body').mouseenter(function() {
+					gapi.hangout.av.clearMicrophoneMute();
+				});
+				$('body').mouseleave(function() {
+					gapi.hangout.av.setMicrophoneMute(true);
+				});
+
 					$('body').keydown(function(e){
 					  gapi.hangout.av.clearMicrophoneMute();
 					});
