@@ -51,7 +51,7 @@ function onVolumesChanged(event) {
 function init() {
   // When API is ready...
 	gapi.hangout.av.setMicrophoneMute(true);
-	gapi.hangout.av.onVolumesChanged.add(onVolumesChanged);
+	//gapi.hangout.av.onVolumesChanged.add(onVolumesChanged);
 	gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
