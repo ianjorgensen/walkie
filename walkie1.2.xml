@@ -43,42 +43,8 @@
 
 <h3>Walkie Talkie</h3>
 
-<p>
-<input class="button" type="button" value="Show participants!" id="showParticipants"
-    style="visibility:hidden;"
-    onClick="showParticipants()"/>
-</p>
-
-<div id="participantsDiv"></div>
-
-<hr>
-
-<p><a href="http://developers.google.com/+/hangouts/getting-started">Read the docs</a> to learn more about developing hangouts!</a></p>
-
+<p>press and hold space to talk</p>
 <script>
-function showParticipants() {
-	gapi.hangout.av.setMicrophoneMute(true);
-
-  var participants = gapi.hangout.getParticipants();
-
-  var retVal = '<p>Participants: </p><ul>';
-
-  for (var index in participants) {
-    var participant = participants[index];
-
-    if (!participant.person) {
-      retVal += '<li>A participant not running this app</li>';
-    }
-    retVal += '<li>' + participant.person.displayName + '</li>';
-  }
-
-  retVal += '</ul>';
-
-  var div = document.getElementById('participantsDiv');
-
-  div.innerHTML = retVal;
-}
-
 function init() {
   // When API is ready...
 	gapi.hangout.av.setMicrophoneMute(true);
@@ -86,9 +52,6 @@ function init() {
 	gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
-          document.getElementById('showParticipants')
-            .style.visibility = 'visible';
-
 					$('body').keydown(function(e){
 					  gapi.hangout.av.clearMicrophoneMute();
 					});
