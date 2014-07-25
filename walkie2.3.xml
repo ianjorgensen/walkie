@@ -49,15 +49,15 @@ function onVolumesChanged(event) {
 		var volume = gapi.hangout.av.getParticipantVolume(gapi.hangout.getParticipantId());
 
 		$('#volume').text(volume);
-}l
+};
 
 function init() {
   // When API is ready...
-	gapi.hangout.av.setMicrophoneMute(true);
-
 	gapi.hangout.onApiReady.add(
       function(eventObj) {
         if (eventObj.isApiReady) {
+					gapi.hangout.av.setMicrophoneMute(true);
+
 					$('body').mouseenter(function() {
 						gapi.hangout.av.clearMicrophoneMute();
 						$('body').css('background', 'green');
@@ -74,8 +74,8 @@ function init() {
 					$('body').keyup(function(e){
 						gapi.hangout.av.setMicrophoneMute(true);
 					});
-					
-					//gapi.hangout.av.onVolumesChanged.add(onVolumesChanged);
+
+					gapi.hangout.av.onVolumesChanged.add(onVolumesChanged);
         }
       });
 }
